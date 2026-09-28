@@ -5,9 +5,9 @@
     "node": ">=20.x"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build"
-  },
+  "dev": "vite",
+  "build": "vite build"
+},
   "devDependencies": {
     "axios": "^1.6.4",
     "laravel-vite-plugin": "^1.0",
