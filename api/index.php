@@ -1,6 +1,6 @@
 <?php
 
-// 1. Tentukan direktori folder sementara di /tmp Vercel
+// 1. Definisikan jalur direktori aman di /tmp Vercel
 $tmpStorage = '/tmp/storage';
 $tmpBootstrapCache = '/tmp/bootstrap/cache';
 
@@ -19,19 +19,17 @@ foreach ($dirs as $dir) {
     }
 }
 
-// 2. Override path default Laravel sebelum aplikasi dimuat
-putenv("APP_STORAGE_PATH={$tmpStorage}");
+// 2. Override environment path Laravel agar mengarah ke /tmp
 $_ENV['APP_STORAGE_PATH'] = $tmpStorage;
+putenv("APP_STORAGE_PATH={$tmpStorage}");
 
-// 3. Muat autoloader Composer
+// 3. Muat file bootstrap Laravel secara manual agar bisa mengarahkan path cache
 require __DIR__ . '/../vendor/autoload.php';
-
-// 4. Inisialisasi aplikasi Laravel dan arahkan path bootstrap cache
 $app = require_once __DIR__ . '/../bootstrap/app.php';
 
 if (method_exists($app, 'useBootstrapPath')) {
     $app->useBootstrapPath('/tmp/bootstrap');
 }
 
-// 5. Tangani request
+// 4. Jalankan aplikasi Laravel
 $app->handleRequest(\Illuminate\Http\Request::capture());
