@@ -23,7 +23,7 @@ foreach ($dirs as $dir) {
 $_ENV['APP_STORAGE_PATH'] = $tmpStorage;
 putenv("APP_STORAGE_PATH={$tmpStorage}");
 
-// 3. Muat file bootstrap Laravel secara manual agar bisa mengarahkan path cache
+// 3. Muat file bootstrap Laravel secara manual
 require __DIR__ . '/../vendor/autoload.php';
 $app = require_once __DIR__ . '/../bootstrap/app.php';
 
